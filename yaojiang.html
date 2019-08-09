@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+           
+        </style>
+</head>
+<body>
+    <canvas width="700" height="600">
+
+    </canvas>
+    <div id="click"><button>点击</button></div>
+
+    <script>
+        var canvas=document.querySelector('canvas');
+        console.log(canvas);
+        var ctx=canvas.getContext('2d');
+        ctx.translate(200,200);
+        var r=0;
+        var myReq;
+        var sumR=0;
+        var datas = [600, 800, 600, 1000,  1200, 800,  1600];
+         var colors = ['hotpink', 'skyblue', '#daa520', '#f99', '#123456', 'orange', 'red'];
+        function rotate(){
+            r+=5;  
+            var angels=[];
+            var sum=0;
+            var va=0;
+           
+           
+            ctx.clearRect(0,0,canvas.width,canvas.height); 
+            sumR+=r;
+            ctx.save();
+            ctx.rotate(gr(r));
+            datas.forEach(function(v,i){
+                sum+=v;
+            })
+            datas.forEach(function(v,i){
+                angels.push(v/sum*2*Math.PI);
+            })
+            angels.forEach(function(v,i){
+                ctx.beginPath();
+                ctx.moveTo(0,0);
+                ctx.arc(0,0,150,va,va+v);
+                ctx.stroke();
+                ctx.fillStyle=colors[i];
+                ctx.fill();
+                va+=v;
+               
+            })
+                ctx.save();
+
+            myReq=requestAnimationFrame(rotate);
+    }
+
+        function init(){
+                var angels=[];
+                var r=0;
+                var sum=0;
+                var va=0;
+                ctx.clearRect(0,0,canvas.width,canvas.height); 
+              
+                datas.forEach(function(v,i){
+                    sum+=v;
+                })
+                datas.forEach(function(v,i){
+                    angels.push(v/sum*2*Math.PI);
+                })
+                angels.forEach(function(v,i){
+                    ctx.beginPath();
+                    ctx.moveTo(0,0);
+                    ctx.arc(0,0,150,va,va+v);
+                    ctx.stroke();
+                    ctx.fillStyle=colors[i];
+                    ctx.fill();
+                    va+=v;
+                })
+                ctx.save();
+                ctx.lineWidth=5;
+                ctx.strokeStyle='#daa520';
+                ctx.beginPath();   
+                ctx.moveTo(0,0);
+                ctx.lineTo(0,-100);
+                ctx.stroke();
+                ctx.beginPath(); 
+                ctx.lineWidth=1;
+                ctx.moveTo(0,-100);
+                ctx.lineTo(-10,-95);
+                ctx.lineTo(0,-98);
+                ctx.lineTo(10,-95);
+                ctx.closePath();
+                ctx.fillStyle="#daa520";
+                ctx.fill();
+                ctx.stroke();
+                ctx.save();
+
+                ctx.beginPath();
+                ctx.font="15px "
+              
+               
+        }
+    
+        function gr(deg){
+            return deg/180* Math.PI;
+        }
+
+        init();
+     
+        var btn=document.querySelector("button");
+        var flag=false;
+       
+        btn.addEventListener("click",function(){
+          
+            flag=!flag;
+            if(flag){
+               myReq=requestAnimationFrame(rotate);
+
+                btn.innerHTML='暂停';
+            }else{
+              cancelAnimationFrame(myReq);
+              ctx.beginPath(); 
+              console.log(360-sumR%360);
+              ctx.rotate(gr(360-sumR%360));  
+                ctx.lineWidth=5;
+                ctx.strokeStyle='#daa520';
+                ctx.moveTo(0,0);
+                ctx.lineTo(0,-100);
+                ctx.stroke();
+                ctx.beginPath(); 
+                ctx.lineWidth=1;
+                ctx.moveTo(0,-100);
+                ctx.lineTo(-10,-95);
+                ctx.lineTo(0,-98);
+                ctx.lineTo(10,-95);
+                ctx.closePath();
+                ctx.fillStyle="#daa520";
+                ctx.fill();
+                ctx.stroke();
+                ctx.save();
+               sumR=0;
+              btn.innerHTML='点击';
+
+            }
+        })
+    </script>
+</body>
+</html>
