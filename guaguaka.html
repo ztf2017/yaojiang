@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<canvas id="canvas" width="200" height="50">
+
+</canvas>
+<script>
+    var canvas=document.getElementById("canvas");
+    var ctx=canvas.getContext('2d');
+    var imgUp=new Image();
+    var imgBack=new Image();
+    var size=20;
+    var rip=false;
+    imgUp.onload=function(){
+        imgBack.onload=function(){   
+            ctx.drawImage(imgBack,0,0,200,50,0,0,200,50);
+            canvas.addEventListener("mousemove",function(e){
+                var x=e.clientX;
+                var y=e.clientY;
+                if(rip){
+                    ctx.drawImage(imgUp,x-size/2,y-size/2,size/2,size/2,x-size/2,y-size/2,size/2,size/2);
+                }
+                       
+            })
+            canvas.addEventListener('mousemove',function(){
+          
+            })
+            canvas.addEventListener('mouseenter',function(){
+                rip=true;
+            })
+            canvas.addEventListener('mouseup',function(){
+                rip=false;
+            })
+        
+        }
+        imgBack.src="images/pic2.jpg";
+     
+    }
+    imgUp.src="images/pic1.jpg";
+
+</script>
+</body>
+</html>
